@@ -1,0 +1,123 @@
+<!--
+Shae Allen
+WEBT 2300 A70
+10/2/2018
+Test 1 
+
+!!! USE Firefox... Chrome will not load JSON from the file system.!!!
+-->
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table, th, td {
+    border: 1px solid black;
+    border-style: inset;
+}
+.button:hover{
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+.button2{
+    font-size: 16px;
+    padding:0px 28px;
+}
+.button2:hover{
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);  
+}
+</style>
+<script>
+var levels = '';
+var guessCount = 0;
+var random_num = 0;
+var guessTotals = [];
+var log = 0;
+var min = 0;
+var max = 0;
+                
+                function loadJson(){
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange=function() 
+                    {
+                        if (this.readyState == 4 && this.status == 200)
+                        {
+                            levels = this.responseText;
+                            document.getElementById("label").innerHTML = 'Game Loaded... Press Start to play!';
+                        }
+                    };
+                    xhttp.open("GET", "difficulty.json", true);
+                    xhttp.send();
+                }
+
+                function parse(){
+                    obj = JSON.parse(levels);
+                    var choice = prompt("Choose difficulty, enter a number between 0 and 2","");
+                    document.getElementById("from").innerHTML = obj.difficulty[choice].from;
+                    document.getElementById("to").innerHTML = obj.difficulty[choice].to;
+                    min = obj.difficulty[choice].from
+                    max = obj.difficulty[choice].to;
+                    random_num = getRandomInt(min,max);
+                    document.getElementById("label").innerHTML = 'Enter a number and press guess!';
+                    //alert(min + " " + max + " " + "random #: " + random_num);
+                }
+
+                function getRandomInt(from,to){
+                    from = Math.ceil(from);
+                    to = Math.floor(to);
+                    return Math.floor(Math.random() * (to - from + 1) + from);
+                }
+
+                function guess(){
+                    var playerGuess = document.guessGame.userGuess.value;
+                    guessCount += 1;
+
+                        if (playerGuess > max || playerGuess < min){
+                            alert("Please guess within range.");
+                        }
+                        if(playerGuess > random_num) {
+                        document.getElementById("label").innerHTML = " My number is less than " + playerGuess;
+                        }
+                        else if(playerGuess < random_num) {
+                        document.getElementById("label").innerHTML = " My number is greater than " + playerGuess;
+                        }
+                        else{
+                        alert('It took you ' + guessCount + ' attempts to guess the number');
+                        document.getElementById("label").innerHTML = "Press Start to play again!";
+                        gameInfo();
+                        guessCount = 0;
+                        }
+                }
+
+                function gameInfo(){
+                    log += 1; // or log = guessTotals.length;
+                    alert("You have played " + log +  " times!"); 
+                    guessTotals.push(guessCount);
+                    document.getElementById("label2").innerHTML = guessTotals;
+                }         
+</script>
+</head>
+<body>
+<form name ="guessGame">
+<table>
+	<tr>
+		<th colspan="4">Guessing Game</th>
+	</tr>
+	<tr>    
+		<td colspan="1">From:<label name="min" id="from"></label></td>
+		<td colspan="1">To:  <label name="max" id="to"></label></td>
+		<td rowspan="1"><input type="button" class="button" onClick="loadJson()" value="Load"></td>
+		<td rowspan="1"><input type="button" class="button" onClick="parse()" value="Start"></td>
+	</tr>	
+	<tr>
+		<td colspan="4"><lable id="label">Please press load to begin.</lable></td>
+	</tr>
+	<tr>
+		<td colspan="2"><input type="text" name="userGuess" onFocus="select()" value="Guess a number"></td>
+		<td colspan="2"><input type="button" class="button2" onClick="guess()" value="Guess"></td>
+	</tr>
+	<tr>
+		<td colspan="4"><lable id="label2"></lable></td>
+	</tr>
+</table>
+</form>
+</body>
+</html>

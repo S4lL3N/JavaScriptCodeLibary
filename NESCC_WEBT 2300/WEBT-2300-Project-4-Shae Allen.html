@@ -1,0 +1,53 @@
+
+<html>
+<head>
+<title>Project 4</title>
+<meta charset="UTF-8">
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+	 <script>      
+       $(document).ready(function () { 
+           // http://apps.northeaststate.edu/webservices/faculty_staff_directory/index.php?callback=?&format=json
+          // load the json file (linked in the comment above this line) and parse out the table then append to the id faculty_staff_directory
+          // use the 1_jQuery_JSON.html example file from class to reference in completeing this assignment
+
+
+                var link = "http://apps.northeaststate.edu/webservices/faculty_staff_directory/index.php?callback=?&format=json";
+                $.getJSON(link, function(result){
+                $.each(result, function(i, field){
+                $('#faculty_staff_directory').append(field.id +"<tr><td>"+ field.name +'</td><td>'+  field.title + '<td></td>' + field.ext + "</td><td>" + field.location + "</td><td>" + field.email + "</td><td>" + field.phone + "</td></tr><br />");
+            });
+        });
+                
+                        
+       });  
+    </script>
+</head>
+<body>
+    <h1>WEBT-2300 Project 4 Shae Allen</h1>
+    <table>
+    <thead>
+        <tr>
+            <th>Name</a></th>
+            <th>Title</th> 
+            <th>Ext</th> 
+            <th>Location</th> 
+            <th>Email</th> 
+            <th>Phone</th>
+        </tr>
+    </thead>
+    <tbody id="faculty_staff_directory">
+    </tbody >
+    <tfoot>
+        <tr>
+             <th>Name</th>
+             <th>Title</th>
+             <th>Ext</th>
+             <th>Location</th>
+             <th>Email</th>
+             <th>Phone</th>
+        </tr>
+</tfoot>
+</table>
+</body>
+</html>

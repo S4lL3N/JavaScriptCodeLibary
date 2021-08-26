@@ -1,0 +1,25 @@
+<!-- more indepth description here: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random -->
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Random Number Generator</title>
+<script>
+function getRandomInt(from, to) 
+{
+  	from = Math.ceil(from);
+  	to = Math.floor(to);
+  	return Math.floor(Math.random() * (to - from + 1) + from); 
+}
+
+random_num = getRandomInt(1, 100);
+alert(random_num);
+</script>
+</head>
+
+<body>
+<p>This will generate a random number within a range.</p>
+
+	</body>
+
+</html>

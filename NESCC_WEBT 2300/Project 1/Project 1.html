@@ -1,0 +1,78 @@
+<!--
+Shae Allen
+WEBT 2300 A70
+Project 1 
+-->
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table, th, td {
+    border: 1px solid black;
+}
+.button:hover{
+    background-color: red;
+}
+</style>
+<script type = "text/javascript">
+var guessCount = 0;
+var random_num = 0;
+
+	function getRandomInt(from,to){
+	from = Math.ceil(from);
+	to = Math.floor(to);
+	return Math.floor(Math.random() * (to - from + 1) + from);
+	}
+	//------------------------------
+	
+	function range(){
+	var from = document.guessGame.min.value;
+	var to = document.guessGame.max.value;
+	random_num = getRandomInt(from,to);
+	//alert('random # is:' + random_num);   // ***For Testing***
+    document.getElementById("label").innerHTML = "Please guess a number, enter it below, and press Guess.";
+	}
+	//-------------------------------
+	
+	function guess(){
+	var playerGuess = document.guessGame.userGuess.value;
+	guessCount += 1;
+	
+		if(playerGuess > random_num) {
+		//alert('guess lower');
+		document.getElementById("label").innerHTML = " My number is less than " + playerGuess;
+		}
+		else if(playerGuess < random_num) {
+		//alert('guess higher');
+		document.getElementById("label").innerHTML = " My number is greater than " + playerGuess;
+		}
+		else{
+		alert('It took you ' + guessCount + ' attempts to guess the number');
+		document.getElementById("label").innerHTML = "Press Start to play again!";
+		guessCount = 0;
+		}
+	}	
+</script>
+</head>
+<body>
+<form name ="guessGame">
+<table>
+	<tr>
+		<th colspan="5">Range of Numbers</th>
+	</tr>
+	<tr>
+		<td colspan="2">From:<input type="text" name="min" onFocus="select()" value="Enter a min"></td>
+		<td colspan="2">To:<input type="text" name="max" onFocus="select()" value="Enter a max"></td>
+		<td rowspan="3"><input type="button" class="button" onClick="range()" value="Start"></td>
+	</tr>	
+	<tr>
+		<td colspan="4"><lable id="label">Please set range and press the start button.</lable></td>
+	</tr>
+	<tr>
+		<td colspan="2"><input type="text" name="userGuess" onFocus="select()" value="Guess a number"></td>
+		<td colspan="2"><input type="button" class="button" onClick="guess()" value="Guess"></td>
+	</tr>
+</table>
+</form>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<html>
+	<head>
+	<script type="text/javascript">
+		
+	<!-- HERE ARE 3 Ways to get data from fields using the DOM -->	
+	function getTboxValue()
+	{
+			alert(document.example.textBox1.value);
+			myHeader.innerText = "Successful Document Object Test" // innerText returns plain text
+			document.getElementById("mySubHeader").innerHTML = "<i>Another</i> <font color='red'>Test</font>"; // innerHTML allows formatting
+	}
+	</script>	
+	</head>
+<body>
+	<h2 id="myHeader">Document Object Example</h2>
+	<h3 id="mySubHeader"></h3><h3>
+	<form name="example">
+		<input type="text" name="textBox1" />
+		<input name="get_tbox_value" value="Get Text-box Value" onclick="getTboxValue()" type="button">
+	</form>	
+</body>
+</html>
+
+
+
+
+
+
